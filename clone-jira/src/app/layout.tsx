@@ -1,7 +1,10 @@
-import "@/globals.css";
+import { routes } from '@/shared/config/routes';
+import { useRouter } from 'next/router'; // pages 디렉토리 기준
+import "@/app/globals.css";
 import Header from '@/widgets/header/ui/header';
 import Footer from '@/widgets/footer/ui/footer';
 import Nav from '@/widgets/nav/ui/nav';
+
 
 export default function RootLayout({
   children,

@@ -1,11 +1,20 @@
-import { Button } from "@/shared/ui/button"
+import Link from "next/link";
+import { routes } from "@/shared/config/routes";
 
 export default function nav() {
   return (
     <nav className="p-4 border-r">
       <ul>
-        <li><Button>대시보드</Button></li>
-        <li><Button>나의 업무</Button></li>
+        <li>
+          <Link href={routes.works}>
+            Dashboard
+          </Link>
+        </li>
+        <li>
+            <Link href={routes.works}>
+              나의업무
+            </Link>
+        </li>
       </ul>
     </nav>
   )
