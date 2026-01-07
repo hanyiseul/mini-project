@@ -8,7 +8,7 @@ export function Label({
     children,
     htmlFor,
     onClick,
-}: InputProps) {
+}: LabelProps) {
 return (
     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={htmlFor} onClick={onClick}>
         {children}
