@@ -17,7 +17,7 @@ export default function RootLayout({
           {/* 핵심 */}
           <main className="flex-1 flex">
             <Nav />
-            <div className="content">
+            <div className="content w-full">
               {children}  
             </div>
           </main>

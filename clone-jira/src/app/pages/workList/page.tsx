@@ -1,27 +1,20 @@
-import { Table, type Column } from "@/shared/ui/table";
-import Link from "next/link";
+"use client";
 
-type User = {
-  id: number;
-  works: string;
-  name: string;
-  date: string;
-  report: string;
-  complate: string; 
+import { Table, type Column } from "@/shared/ui/table";
+import axios from "axios";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+type Work = {
+  id: number | string;
+  works?: string;
+  name?: string;
+  date?: string;
+  report?: string;
+  complate?: string;
 };
 
-const users: User[] = [
-  {
-    id: 1,
-    works: "업무",
-    name: "홍길동",
-    date: "2025년 12월 29일 오후 16:55",
-    report: "김철수",
-    complate: "해결",
-  },
-];
-
-const columns: Column<User>[] = [
+const columns: Column<Work>[] = [
   { key: "id", header: "ID" },
   { key: "works", header: "업무" },
   { key: "name", header: "이름" },
@@ -31,13 +24,36 @@ const columns: Column<User>[] = [
 ];
 
 export default function WorkPage() {
+  const [works, setWorks] = useState<Work[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWorks = async () => {
+      try {
+        const res = await axios.get('/api/works');
+        if (res.data.ok) {
+          setWorks(res.data.items);
+        }
+      } catch (error) {
+        console.error('Error fetching works:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchWorks();
+  }, []);
+
+  if(loading) return <div>Loading...</div>;
   return(
     <>
-      <Table<User> data={users} columns={columns} />
-      <div className="flex justify-end p-4">
-        <Link href="/pages/workForm" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          새 업무 추가
-        </Link>
+      <div className="m-10">
+        
+        <Table<Work> data={works} columns={columns} />
+        <div className="flex justify-end p-4">
+          <Link href="/pages/workForm" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            새 업무 추가
+          </Link>
+        </div>
       </div>
     </>
   )
