@@ -1,6 +1,5 @@
-// firebase/client.ts
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_apiKey!,
@@ -9,15 +8,10 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_storageBucket!,
   messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId!,
   appId: process.env.NEXT_PUBLIC_appId!,
-  measurementId: process.env.NEXT_PUBLIC_measurementId!,
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-export const initAnalytics = () => {
-  if (typeof window !== "undefined") {
-    getAnalytics(app);
-  }
-};
-
-export { app };
+export const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+});
