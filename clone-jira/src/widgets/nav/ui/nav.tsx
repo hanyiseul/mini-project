@@ -6,12 +6,12 @@ export default function nav() {
     <nav className="p-4 border-r">
       <ul>
         <li>
-          <Link href={routes.workList}>
+          <Link href={'/dashbord'}>
             Dashboard
           </Link>
         </li>
         <li>
-            <Link href={routes.workList}>
+            <Link href={'/workList'}>
               나의업무
             </Link>
         </li>

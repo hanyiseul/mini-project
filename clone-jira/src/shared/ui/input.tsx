@@ -3,7 +3,9 @@ type InputProps = {
   placeholder?: string;
   type?: 'text' | 'password' | 'email' | 'number' | 'checkbox' | 'radio' | 'date';
   disabled?: boolean;
+  value?: string | number;
   onClick?: () => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export function Input({
@@ -12,6 +14,8 @@ export function Input({
   type = 'text',
   disabled = false,
   onClick,
+  onChange,
+  value,
 }: InputProps) {
   return (
     <input
@@ -20,6 +24,8 @@ export function Input({
       placeholder={placeholder}
       disabled={disabled}
       onClick={onClick}
+      onChange={onChange}
+      value={value}
       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
     />
   );

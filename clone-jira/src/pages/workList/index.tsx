@@ -3,6 +3,7 @@
 import { Table, type Column } from "@/shared/ui/table";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 type Work = {
@@ -15,7 +16,7 @@ type Work = {
 };
 
 const columns: Column<Work>[] = [
-  { key: "id", header: "ID" },
+  // { key: "id", header: "ID" },
   { key: "works", header: "업무" },
   { key: "name", header: "이름" },
   { key: "date", header: "날짜" },
@@ -26,6 +27,7 @@ const columns: Column<Work>[] = [
 export default function WorkPage() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchWorks = async () => {
@@ -48,9 +50,11 @@ export default function WorkPage() {
     <>
       <div className="m-10">
         
-        <Table<Work> data={works} columns={columns} />
+        <Table<Work> data={works} columns={columns} onRowClick={(row) => {
+          router.push(`/workForm?id=${row.id}`)
+        }}/>
         <div className="flex justify-end p-4">
-          <Link href="/pages/workForm" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          <Link href="/workForm" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             새 업무 추가
           </Link>
         </div>
